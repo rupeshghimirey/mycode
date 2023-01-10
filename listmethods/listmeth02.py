@@ -10,4 +10,10 @@ proto.extend(proto2) # pass proto2 as an argument to the extend method
 print(proto)
 protoa.append(proto2) # pass proto2 as an argument to the append method
 print(protoa)
+protoa.insert(1,"rupesh")
+protoa.reverse();
 
+protoa.pop(); # removes ssh from list
+protoa.remove([22, 80, 443, 53]); # removes first item which is the nested array in this list
+
+print(protoa)
