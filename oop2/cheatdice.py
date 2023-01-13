@@ -33,3 +33,8 @@ class Cheat_Loaded_Dice(Player): # inheritance of Player
                 self.dice[i] += 1
             i += 1
 
+class Mulligan_Cheater(Player):
+    def cheat(self):
+        if(sum(self.get_dice()) <= 9):
+            self.roll()
+
