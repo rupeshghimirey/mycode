@@ -40,6 +40,7 @@ def main():
     # sort DataFrame based on Gross Earnings
     sorted_by_gross = movies.sort_values(["Gross Earnings"], ascending=False)
     
+    sorted_by_gross = ("~/static/movies.json")
     # Data is sorted by values in a column
     # display the top 10 movies by Gross Earnings.
     # passing the 10 values to head returns the top 10 not the default 5
