@@ -1,7 +1,11 @@
 #!/usr/bin/python3
-"""RZFeeser || Alta3 Research
-Tracking student inventory within a sqliteDB accessed
-via Flask APIs"""
+'''RZFeeser || Alta3 Research
+SOLUTION 02 - Adding the ability to REMOVE data from the database with:
+
+curl -X DELETE "localhost:2224/remove?name=Timmy"
+curl -X DELETE "localhost:2224/remove?name=Jane"
+curl -X DELETE "localhost:2224/remove?name=Larry"
+'''
 
 # standard library
 import sqlite3 as sql
@@ -45,13 +49,12 @@ def addrec():
             con.commit()
         # if we have made it this far, the record was successfully added to the DB
         msg = "Record successfully added"
-        
+
     except:
         con.rollback()  # this is the opposite of a commit()
         msg = "error in insert operation"    # we were NOT successful
 
     finally:
-        con.close()     # successful or not, close the connection to sqliteDB
         return render_template("result.html",msg = msg)    #
 
 # return all entries from our sqliteDB as HTML
@@ -59,12 +62,46 @@ def addrec():
 def list_students():
     con = sql.connect("database.db")
     con.row_factory = sql.Row
-    
+
     cur = con.cursor()
     cur.execute("SELECT * from students")           # pull all information from the table "students"
-    
+
     rows = cur.fetchall()
+
     return render_template("list.html",rows = rows) # return all of the sqliteDB info as HTML
+
+# use a HTTP DELETE to remove an entry from the table
+@app.route('/remove', methods = ['DELETE'])
+def remove():
+    try:  # HTTP DELETE arrives at /remove?name=<name in DB to remove>
+
+        name_to_remove = request.args.get("name") # peel off arguments and capture name to be removed
+
+        with sql.connect("database.db") as con:
+            cur = con.cursor()
+            cur.execute("SELECT * FROM students WHERE name=(?)",(name_to_remove,))
+
+
+
+
+
+            data = cur.fetchall()
+            if len(data) == 0:
+                msg = "record does not exist"
+            else:
+                # place the info from our form into the sqliteDB
+                cur.execute("DELETE FROM students WHERE name=(?)",(name_to_remove,) )
+
+                # commit the transaction to our sqliteDB
+                con.commit()
+
+                # if we have made it this far, the record was successfully added to the DB
+                msg = "record successfully removed"
+
+    except:
+        msg = "error in removing the record"
+    finally:
+        return render_template("result.html",msg = msg) # return success
 
 if __name__ == '__main__':
     try:
@@ -78,5 +115,5 @@ if __name__ == '__main__':
         # begin Flask Application 
         app.run(host="0.0.0.0", port=2224, debug = True)
     except:
-        print("App failed on boot")
+        print("App failed on boot")                                                       
 
