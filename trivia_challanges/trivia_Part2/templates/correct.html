@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correct Response</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+
+<body>
+
+    {% if question_answer_dict[trivia_answer_option]==answer%}
+        <h1 class="text-center text-success bg-dark col-lg-6 offset-lg-3 mt-3">Correct!!! Lucky Guess {{user_name}}!
+        </h1>
+        <img src="https://st.depositphotos.com/1654249/1263/i/600/depositphotos_12630702-stock-photo-3d-man-showing-thumbs-up.jpg"
+            class="img-fluid col-lg-6 offset-lg-3 mt-3" alt="Responsive image">
+        {% else %}
+        <h1 class="text-center text-danger bg-dark col-lg-6 offset-lg-3 mt-3">Incorrect! Please try again</h1>
+        <img src="https://st.depositphotos.com/1228953/3068/i/600/depositphotos_30685647-stock-photo-no-sign.jpg"
+            class="img-fluid col-lg-6 offset-lg-3 mt-3" alt="Responsive image">
+        {% endif %}
+
+    <!-- <h1 class="text-center text-success bg-dark col-lg-6 offset-lg-3 mt-3">Lucky Guess! Correct!!!</h1>
+    <img src="https://st.depositphotos.com/1654249/1263/i/600/depositphotos_12630702-stock-photo-3d-man-showing-thumbs-up.jpg"
+        class="img-fluid col-lg-6 offset-lg-3 mt-3" alt="Responsive image"> -->
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+
+</html>
