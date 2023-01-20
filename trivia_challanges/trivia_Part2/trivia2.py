@@ -14,9 +14,6 @@ question_answer_dict = questions.question_and_answer()
 question= question_answer_dict["question"]
 answer= question_answer_dict["answer"]
 
-print(question)
-print(answer)
-
 @app.route("/")
 def home():
     return render_template('trivia.html',name=user_name, question_answer_dict = question_answer_dict, answer=answer,)
